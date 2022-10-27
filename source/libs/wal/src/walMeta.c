@@ -186,7 +186,7 @@ static FORCE_INLINE int64_t walScanLogGetLastVer(SWal* pWal, int32_t fileIdx) {
     if (found || offset == 0) break;
 
     // go backwards, e.g. by at most one WAL scan buf size
-    end = offset + walCkHeadSz - 1;
+    end = TMIN(offset + walCkHeadSz - 1, fileSize);
     firstTrial = false;
   }
 
